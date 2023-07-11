@@ -174,15 +174,15 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    - task: AzureCLI@2
-      displayName: aks non-admin login using kubelogin
+    - task: Bash@3
+      displayName: az and aks login
       inputs:
-           azureSubscription: 'Avaxia-DevOps'
-           scriptType: batch
-           scriptLocation: inlineScript
-           inlineScript: |
-                az aks get-credentials -n dev-aks -g Avaxia-DevOps & kubelogin convert-kubeconfig -l   azurecli & Kubectl get nodes
-
+          targetType: 'inline'
+          script: |
+            az login --identity 
+            az aks get-credentials -n dev-aks -g Avaxia-DevOps
+            kubelogin convert-kubeconfig -l azurecli
+  
     - task: DownloadBuildArtifacts@1
       displayName: Download Artifacts
       inputs:
