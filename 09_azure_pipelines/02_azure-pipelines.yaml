@@ -187,9 +187,9 @@ stages:
       displayName: Deploy YAML Manifest
       inputs:
         connectionType: 'Azure Resource Manager'
-        azureSubscriptionEndpoint: 'dev-aks'
+        azureSubscriptionEndpoint: 'Avaxia-DevOps'
         azureResourceGroup: 'Avaxia-DevOps'
-        kubernetesCluster: 'aks-cluster'
+        kubernetesCluster: 'dev-aks'
         namespace: 'abdelhak'
         command: 'apply'
         useConfigurationFile: true
@@ -232,8 +232,8 @@ stages:
       displayName: Deploy Helm Chart
       inputs:
         connectionType: 'Azure Resource Manager'
-        azureSubscription: 'dev-aks'
-        azureResourceGroup: 'Avaxia-Devops'
+        azureSubscription: 'Avaxia-DevOps'
+        azureResourceGroup: 'Avaxia-DevOps'
         kubernetesCluster: 'dev-aks'
         namespace: 'qa'
         command: 'upgrade'
@@ -299,7 +299,7 @@ stages:
         scriptLocation: 'inlineScript'
         workingDirectory: '$(System.ArtifactsDirectory)/drop/helm_chart'
         inlineScript: |
-          az aks get-credentials --resource-group Avaxia-Devops --name dev-aks
+          az aks get-credentials --resource-group Avaxia-DevOps --name dev-aks
 
           kubectl cluster-info
 
@@ -326,7 +326,7 @@ stages:
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
-          az aks get-credentials --resource-group Avaxia-Devops --name dev-aks
+          az aks get-credentials --resource-group Avaxia-DevOps --name dev-aks
           kubectl cluster-info
 
           # Deploy job.yaml to scan Kubernetes config and job-aks.yaml to scan specific AKS config
