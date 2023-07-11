@@ -110,7 +110,7 @@ stages:
     - task: AzureCLI@2
       displayName: Push Container to ACR
       inputs:
-        azureSubscription: 'dev-aks'
+        azureSubscription: 'Avaxia-DevOps'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
@@ -122,7 +122,7 @@ stages:
       displayName: '[Optional] Build Container inside ACR'
       enabled: ${{ parameters.runCompletePipeline}}
       inputs:
-        azureSubscription: 'aks-spn-ca'
+        azureSubscription: 'Avaxia-DevOps'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
@@ -188,7 +188,7 @@ stages:
       inputs:
         connectionType: 'Azure Resource Manager'
         azureSubscriptionEndpoint: 'dev-aks'
-        azureResourceGroup: 'Avaxia-Devops'
+        azureResourceGroup: 'Avaxia-DevOps'
         kubernetesCluster: 'aks-cluster'
         namespace: 'abdelhak'
         command: 'apply'
