@@ -110,13 +110,13 @@ stages:
     - task: AzureCLI@2
       displayName: Push Container to ACR
       inputs:
-        azureSubscription: 'aks-spn-ca'
+        azureSubscription: 'dev-aks'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
-          az acr login -n acrforakscluster
+          az acr login -n devavaxiaregistry.azurecr.io
 
-          docker push acrforakscluster.azurecr.io/webapp:$(tag)
+          docker push devavaxiaregistry.azurecr.io/webapp:$(tag)
 
     - task: AzureCLI@2
       displayName: '[Optional] Build Container inside ACR'
@@ -126,9 +126,9 @@ stages:
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
-          az acr login -n acrforakscluster
+          az acr login -n devavaxiaregistry.azurecr.io
 
-          az acr build -r acrforakscluster -t webapp:$(tag) app-dotnet
+          az acr build -r devavaxiaregistry.azurecr.io -t webapp:$(tag) app-dotnet
 
     - task: qetza.replacetokens.replacetokens-task.replacetokens@4
       displayName: Replace TAG in YAML Deployment
