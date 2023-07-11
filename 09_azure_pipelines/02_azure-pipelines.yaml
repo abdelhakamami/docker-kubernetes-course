@@ -177,7 +177,7 @@ stages:
     - task: AzureCLI@2
       displayName: azcli login and save creds
       inputs:
-        azureSubscription: 'myakstestsp'
+        azureSubscription: 'Avaxia-DevOps'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
