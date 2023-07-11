@@ -174,15 +174,28 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    - task: Bash@3
-      displayName: az and aks login
+    - task: AzureCLI@2
+      displayName: azcli login and save creds
       inputs:
-          targetType: 'inline'
-          script: |
-            az login --identity 
-            az aks get-credentials -n dev-aks -g Avaxia-DevOps
-            kubelogin convert-kubeconfig -l azurecli
-  
+        azureSubscription: 'myakstestsp'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          #Unfortunately azurecli task does a logout at the end, so we need to grab creds and then login from bash
+          echo "export servicePrincipalId=$servicePrincipalId" >.env
+          echo "export servicePrincipalKey=$servicePrincipalKey" >>.env
+          echo "export tenantId=$tenantId" >>.env
+        addSpnToEnvironment: true
+
+    - bash: |
+        source .env
+        az login --service-principal -u $servicePrincipalId -p $servicePrincipalKey -t $tenantId
+        mkdir -p .bin
+        az aks install-cli --install-location .bin/kubectl  # install kubelogin
+        az aks get-credentials -n $(kubernetesCluster) -g $(azureResourceGroup)
+        kubelogin convert-kubeconfig -l azurecli 
+        kubectl get all -A
+    
     - task: DownloadBuildArtifacts@1
       displayName: Download Artifacts
       inputs:
