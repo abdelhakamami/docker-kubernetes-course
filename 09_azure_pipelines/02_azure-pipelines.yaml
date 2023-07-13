@@ -231,12 +231,12 @@ stages:
       inputs:
         connectionType: 'Kubernetes Service Connection'
         kubernetesServiceEndpoint: 'dev-aks'
-        namespace: 'abdelha-qa'
+        namespace: 'qa'
         command: 'install'
         chartType: 'FilePath'
         chartPath: '$(System.ArtifactsDirectory)/drop/helm_chart'
         releaseName: 'first-app'
-        overrideValues: 'image.tag="1.21.0", --namespace abdelha-qa'
+        overrideValues: 'image.tag="1.21.0", --namespace qa'
         arguments: '--create-namespace'
 
   - job: Test
