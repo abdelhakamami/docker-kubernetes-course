@@ -236,7 +236,7 @@ stages:
         chartType: 'FilePath'
         chartPath: '$(System.ArtifactsDirectory)/drop/helm_chart'
         releaseName: 'first-app'
-        overrideValues: 'image.tag="1.21.0", --namespace qa'
+        overrideValues: 'image.tag="1.21.0", --namespace abdelha-qa'
         arguments: '--create-namespace'
 
   - job: Test
