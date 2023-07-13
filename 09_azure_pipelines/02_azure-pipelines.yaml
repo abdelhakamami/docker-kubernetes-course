@@ -160,7 +160,7 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: Upload Helm Chart
       inputs:
-        PathtoPublish: '03_helm/firstchart'
+        PathtoPublish: '03_helm/ma'
         ArtifactName: 'drop\helm_chart'
         publishLocation: 'Container'
 
