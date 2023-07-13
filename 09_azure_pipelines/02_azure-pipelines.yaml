@@ -232,7 +232,7 @@ stages:
         connectionType: 'Kubernetes Service Connection'
         kubernetesServiceEndpoint: 'dev-aks'
         namespace: 'abdelhak'
-        command: 'install'
+        command: 'upgrade'
       
         chartType: 'FilePath'
         chartPath: '$(System.ArtifactsDirectory)/drop/helm_chart'
