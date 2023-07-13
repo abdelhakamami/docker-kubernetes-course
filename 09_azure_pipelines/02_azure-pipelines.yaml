@@ -229,11 +229,9 @@ stages:
     - task: HelmDeploy@0
       displayName: Deploy Helm Chart
       inputs:
-        connectionType: 'Azure Resource Manager'
-        azureSubscription: 'Avaxia-DevOps'
-        azureResourceGroup: 'Avaxia-DevOps'
-        kubernetesCluster: 'dev-aks'
-        namespace: 'qa'
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'dev-aks'
+        namespace: 'abdelha-qa'
         command: 'upgrade'
         chartType: 'FilePath'
         chartPath: '$(System.ArtifactsDirectory)/drop/helm_chart'
