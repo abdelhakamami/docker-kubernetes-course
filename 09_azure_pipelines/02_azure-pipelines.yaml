@@ -231,7 +231,7 @@ stages:
       inputs:
         connectionType: 'Kubernetes Service Connection'
         kubernetesServiceEndpoint: 'dev-aks'
-        namespace: 'qa'
+        namespace: 'abdelhak'
         command: 'install'
       
         chartType: 'FilePath'
