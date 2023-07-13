@@ -1,0 +1,20 @@
+apiVersion: v2
+name: rbacs
+description: A Helm chart for rbacs
+appVersion: 0.1.0
+type: application
+sources:
+  - https://gitlab.com/avaxia/monitoring-client-app
+maintainers: 
+  - name: Amami Abdelhak
+    email: abdelhak.amami@avaxia-group.com
+    url: https://gitlab.com/avaxia  
+icon: https://www.servicetrace.com/wp-content/uploads/2020/09/APM-2.png
+version: 0.0.1
+deprecated: false
+dependencies:
+  - name: mysql
+    version:  8.0.x
+    repository: https://marketplace.azurecr.io/helm/v1/repo
+    condition: mysql.enabled
+
