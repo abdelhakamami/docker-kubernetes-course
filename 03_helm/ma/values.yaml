@@ -2,7 +2,7 @@ nameOverride:
 fullnameOverride: ""
 imagesPullSecret: 
 imagesPullPolicy: Always
-namespace: rbacs
+namespace: abdelhak
 
 
 rbacalpha:
