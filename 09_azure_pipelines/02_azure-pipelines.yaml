@@ -238,7 +238,7 @@ stages:
         chartPath: '$(System.ArtifactsDirectory)/drop/helm_chart'
         releaseName: 'rbacs'
         overrideValues: ' --namespace qa'
-        arguments: '--create-namespace' 
+        arguments: '--create-namespace  --dependency-update ' 
 
   - job: Test
     displayName: 'Integration Tests QA'
