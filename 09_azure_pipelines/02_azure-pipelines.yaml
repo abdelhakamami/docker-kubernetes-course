@@ -237,7 +237,7 @@ stages:
         chartType: 'FilePath'
         chartPath: '$(System.ArtifactsDirectory)/drop/helm_chart'
         releaseName: 'rbacs'
-        arguments: '--create-namespace   ' 
+        
 
   - job: Test
     displayName: 'Integration Tests QA'
