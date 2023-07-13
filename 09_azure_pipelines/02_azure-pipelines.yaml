@@ -233,11 +233,13 @@ stages:
         kubernetesServiceEndpoint: 'dev-aks'
         namespace: 'qa'
         command: 'install'
+      
         chartType: 'FilePath'
         chartPath: '$(System.ArtifactsDirectory)/drop/helm_chart'
-        releaseName: 'first-app'
-        overrideValues: 'image.tag="1.21.0", --namespace qa'
-        arguments: '--create-namespace'
+        releaseName: 'rbacs'
+        overrideValues: ' --namespace qa'
+        arguments: '--create-namespace' , '--dependency-update'
+'
 
   - job: Test
     displayName: 'Integration Tests QA'
