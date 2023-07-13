@@ -262,7 +262,7 @@ stages:
     timeoutInMinutes: 4320 # job times out in 3 days
     steps:   
     - task: ManualValidation@0
-      timeoutInMinutes: 1 # 1440 # task times out in 1 day
+      timeoutInMinutes: 10 # 1440 # task times out in 1 day
       enabled: ${{ parameters.runCompletePipeline}}
       inputs:
         notifyUsers: 'abdelhak.amami@avaxia-group.com'
@@ -296,6 +296,7 @@ stages:
         workingDirectory: '$(System.ArtifactsDirectory)/drop/helm_chart'
         inlineScript: |
           az aks get-credentials --resource-group Avaxia-DevOps --name dev-aks
+          kubelogin convert-kubeconfig -l azurecli
 
           kubectl cluster-info
 
