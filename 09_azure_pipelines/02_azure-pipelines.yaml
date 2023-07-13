@@ -296,11 +296,10 @@ stages:
         workingDirectory: '$(System.ArtifactsDirectory)/drop/helm_chart'
         inlineScript: |
           az aks get-credentials --resource-group Avaxia-DevOps --name dev-aks
-          kubelogin convert-kubeconfig -l azurecli
 
           kubectl cluster-info
 
-          helm upgrade -f values.yaml --set image.tag="1.20.0" --set service.type=LoadBalancer my-app . --install --namespace prod --create-namespace
+          helm install -f values.yaml  my-app --namespace abdelhak 
 
   - job: Test
     displayName: 'Integration Tests PROD'
