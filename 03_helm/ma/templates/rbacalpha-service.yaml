@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-rbacalpha
+  labels:
+    {{- include "rbacalpha.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.rbacalpha.service.type }}
+  ports:
+    - port: {{ .Values.rbacalpha.service.port }}
+      targetPort: 5002
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "rbacalpha.selectorLabels" . | nindent 4 }}

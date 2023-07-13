@@ -1,0 +1,61 @@
+{{- if  .Values.rbacalpha.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-rbacalpha
+  labels:
+    {{- include "rbacalpha.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.rbacalpha.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "rbacalpha.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.rbacalpha.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "rbacalpha.selectorLabels" . | nindent 8 }}
+        date: "{{ now | unixEpoch }}"
+    spec:
+      {{- with .Values.imagesPullSecret }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}-rbacalpha
+          image: "{{ .Values.rbacalpha.image.repository }}:{{ .Values.rbacalpha.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.imagesPullPolicy }}
+          {{- if .Values.rbacalpha.persistence.enabled }}
+          volumeMounts:
+          - mountPath: {{ .Values.rbacalpha.persistence.imagesPath }}
+            name: imagefolder
+          {{- end }}
+          env:          
+            {{- range .Values.rbacalpha.env }}
+          - name: {{ .name }}
+            value: {{ .value | quote }}
+            {{- end }}
+          ports:
+            - containerPort: 5002
+          livenessProbe:
+            exec:
+              command:
+              - touch
+              - /tmp/healthy
+          readinessProbe:
+            exec:
+              command:
+              - touch
+              - /tmp/healthy
+          resources:
+            {{- toYaml .Values.rbacalpha.resources | nindent 12 }}
+      {{- if .Values.rbacalpha.persistence.enabled }}
+      volumes:
+      - name: imagefolder
+        persistentVolumeClaim:
+          claimName: rbac-core-imagefolder
+      {{- end -}}
+  {{- end }}
